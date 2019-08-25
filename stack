@@ -1,0 +1,81 @@
+class node
+{
+public:
+	node* next;
+	char data;
+};
+
+class stack
+{
+	node* top;
+public:
+	stack() { top = NULL; }
+	void push(node*);
+	void pop();
+	void print();
+	char topdata();//Return top data of the stack
+	bool isempty();//Check the is stack empty
+};
+
+void stack::push(node* n)
+{
+	if (top == NULL)
+	{
+		top = n;
+		n->next = NULL;
+	}
+	else
+	{
+		n->next = top;
+		top = n;
+	}
+}
+
+void stack::pop()
+{
+	if (top == NULL)
+	{
+		cout << "\nStack is empty.\n\n";
+	}
+	else
+	{
+		node* ptr = top;
+		top = top->next;
+		if(top!=NULL)
+			delete[]ptr;
+	}
+}
+
+void stack::print()
+{
+	if (top == NULL)
+	{
+		cout << "\nStack is empty.\n\n";
+	}
+	else
+	{
+		node* ptr = top;
+		cout << "***Stack List***\n";
+		while (ptr != NULL)
+		{
+			cout << "->" << ptr->data << endl;
+			ptr = ptr->next;
+		}
+	}
+}
+
+char stack::topdata()
+{
+	if (top != NULL)
+		return top->data;
+	else
+		return ' ';
+}
+
+bool stack::isempty()
+{
+	if (top == NULL)
+		return 1;
+	else
+		return 0;
+}
