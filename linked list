@@ -1,0 +1,109 @@
+class node
+{
+public:
+	node* next;
+	int data;
+};
+
+class LinkedList {
+private:
+	node* start;
+	node* getLastNode();
+public:
+	LinkedList()
+	{
+		start = NULL;
+	}
+	void insertBeg(node*);//Insert a new node at the beginning
+	void insertEnd(node*); //Insert a node at the end
+	void print(); //Print current list Node* search(int F); //Search an existing element in the list
+	bool search(int);
+	node* getstart() { return start; }
+};
+
+void LinkedList::insertBeg(node* n)
+{
+	if (start == NULL)
+	{
+		start = n;
+		n->next = NULL;
+	}
+	else
+	{
+		n->next = start;
+		start = n;
+	}
+
+}
+
+void LinkedList::insertEnd(node* n)
+{
+	if (start == NULL)
+	{
+		start = n;
+		n->next = NULL;
+	}
+	else
+	{
+		getLastNode()->next = n;
+		n->next = NULL;
+	}
+}
+
+node* LinkedList::getLastNode()
+{
+	node* ptr = start;
+	while (ptr->next != NULL)
+	{
+		ptr = ptr->next;
+	}
+	return ptr;
+}
+
+void LinkedList::print()
+{
+	cout << "***Linked List***\n";
+	node* ptr = start;
+	while (ptr != NULL)
+	{
+
+		cout << "->" << ptr->data << endl;
+		ptr = ptr->next;
+	}
+
+}
+
+bool LinkedList::search(int x)
+{
+	if (start != NULL)
+	{
+		node* ptr = start;
+		while (ptr->data != x && ptr->next != NULL)
+		{
+			ptr = ptr->next;
+		}
+		if (ptr->data == x)
+			return 1;
+		else
+			return 0;
+	}
+	else return 0;
+}
+
+LinkedList checker(LinkedList l1, LinkedList l2)
+{
+	LinkedList temp_list;
+	
+	node* ptr=l1.getstart();//Assign l1 frist node's address to ptr
+	while (ptr != NULL)
+	{
+		node* temp_node = new node();
+		if (l2.search(ptr->data))//Check are there any simmilar number in l2 
+		{
+			temp_node->data=ptr->data;//Assign simmilar data to temporary node
+			temp_list.insertEnd(temp_node);//Add above node to a list
+		}
+		ptr = ptr->next;
+	}
+	return temp_list;
+}
