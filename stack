@@ -1,25 +1,28 @@
-class node
+
+class node//Node class
 {
 public:
 	node* next;
-	char data;
+	int data;
 };
 
-class stack
+class stack//Stack class
 {
 	node* top;
+	node* getfstnode();//Get first node
 public:
-	stack() { top = NULL; }
-	void push(node*);
-	void pop();
-	void print();
-	char topdata();//Return top data of the stack
-	bool isempty();//Check the is stack empty
+	stack() { top = NULL; }//Constructor set top value to NULL
+	void push(node*);//Insert an element into the stack
+	int pop();//Delete and return the top element from the stack
+	void print();//Print the value of all elements in the stack from the top to bottom
+	stack reverse();//Reverse all the values in the stack
+	int count();//Number of elements in the current stack
+	void dele_list();
 };
 
 void stack::push(node* n)
 {
-	if (top == NULL)
+	if (top== NULL)//Add node to frist
 	{
 		top = n;
 		n->next = NULL;
@@ -31,24 +34,26 @@ void stack::push(node* n)
 	}
 }
 
-void stack::pop()
+int stack::pop()
 {
-	if (top == NULL)
+	if (top == NULL)//Check underflow
 	{
 		cout << "\nStack is empty.\n\n";
 	}
 	else
 	{
+		int copy;
 		node* ptr = top;
+		copy = ptr->data;
 		top = top->next;
-		if(top!=NULL)
-			delete[]ptr;
+		delete[]ptr;//Delete the node
+		return copy;//Return the data of node
 	}
 }
 
 void stack::print()
 {
-	if (top == NULL)
+	if (top == NULL)//Check underflow
 	{
 		cout << "\nStack is empty.\n\n";
 	}
@@ -64,18 +69,57 @@ void stack::print()
 	}
 }
 
-char stack::topdata()
+node* stack::getfstnode()
 {
-	if (top != NULL)
-		return top->data;
-	else
-		return ' ';
+	node* ptr = top;
+	while (ptr->next != NULL)
+	{
+		ptr = ptr->next;
+	}
+	return ptr;
 }
 
-bool stack::isempty()
+stack stack::reverse()
 {
-	if (top == NULL)
-		return 1;
+	stack temp_stack;
+	if (top == NULL)//Check underflow
+	{
+		cout << "\nStack is empty.\n\n";
+		return temp_stack;
+	}
 	else
-		return 0;
+	{
+		
+		node* ptr = top;
+		while (ptr != NULL)//Copy stack to another stack
+		{
+			node* temp_node = new node();
+			temp_node->data = ptr->data;
+			temp_stack.push(temp_node);
+			ptr = ptr->next;
+			
+		}
+		delete ptr;//delete node after copying
+		return temp_stack;
+	}
+}
+
+int stack::count()
+{
+	int total = 0;
+	node* ptr = top;
+	while (ptr != NULL)
+	{
+		total++;
+		ptr = ptr->next;
+	}
+	return total;
+}
+
+void stack::dele_list()
+{
+	while (top!= NULL)
+	{
+		pop();
+	}
 }
