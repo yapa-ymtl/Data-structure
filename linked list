@@ -107,3 +107,41 @@ LinkedList checker(LinkedList l1, LinkedList l2)
 	}
 	return temp_list;
 }
+
+
+int main()
+{
+    node array[10];
+    vector<node> arr;
+
+    int n;
+    cin>>n;
+
+    for (int i = 0; i < n; i++)
+    {
+        node ob;
+        int m;
+        cin>>m;
+        ob.data=m;
+        arr.push_back(ob);
+    }
+    
+
+    for(int i=0;i<10;i++)
+    {
+        array[i].data=i*i;
+    }
+
+    LinkedList ob1;
+
+    for(int i=0;i<8;i++)
+    {
+        ob1.insertBeg(&array[i]);
+        //ob1.insertEnd(&array[i+1]);
+    }
+    ob1.insertEnd(&array[9]);
+    ob1.printLinkedList();
+
+    return 0;
+}
+
